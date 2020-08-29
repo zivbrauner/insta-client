@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import {
-  BrowserRouter as Router,
+  Router,
   Switch,
   Route,
   Link
@@ -11,9 +11,10 @@ import Login  from './features/login/Login';
 import Home  from './features/home/Home';
 
 import PrivateRoute  from './features/core/PrivateRoute';
+import history from './features/core/history';
 import './App.css';
-import axios from 'axios';
-import {Redirect} from 'react-router-dom';
+//import axios from 'axios';
+//import {Redirect} from 'react-router-dom';
 
 
 function App() {
@@ -57,14 +58,19 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Router>
+        <Router history={history}>
           <Switch>
-            <Route path="/login">
+          {/* <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/login">Login</Link></li>
+        </ul> */}
+
+          <Route path="/login">
               <Login />
-            </Route>
-            {/* <Route path="/">
-              <Home />
-            </Route> */}
+          </Route>
+          {/* <Route path="/">
+            <Home />
+          </Route> */}
             <PrivateRoute path="/">
               <Home />
             </PrivateRoute>

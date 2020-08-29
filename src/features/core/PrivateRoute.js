@@ -6,18 +6,20 @@ import {
         } from "react-router-dom";
 //import { useSelector, useDispatch } from 'react-redux';
 //import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import {authService} from './auth-service';
+//import {authService} from './auth-service';
+import store from './store';
 
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
 export default function PrivateRoute({ children, ...rest }) {
-          console.log('in private route')
+          console.log('in private route');
+          console.log('privateRoute:' + store.getState().Authenticated);
           return (
             <Route
               {...rest}
-              render={({ location }) =>
-                authService.isAuthenticated ? (
-                  children
+              render={({ location }) => 
+                store.getState().Authenticated ? (
+                  children 
                 ) : (
                   <Redirect
                     to={{
@@ -26,6 +28,7 @@ export default function PrivateRoute({ children, ...rest }) {
                     }}
                   />
                 )
+                
               }
             />
           );

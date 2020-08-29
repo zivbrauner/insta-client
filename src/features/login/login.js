@@ -7,7 +7,10 @@ import {
   } from './loginSlice';
   import styles from './login.module.css';
 
-  import {authService} from '../core/auth-service';
+  //import {authService} from '../core/auth-service';
+
+  import store from '../core/store';
+  import history from '../core/history';
   import axios from 'axios';
 
   export default function Login(props) {
@@ -33,13 +36,27 @@ import {
       if(res.status === 200)
       {
           console.log('login successful');
-          authService.setAuthenticated(true);
-          return( <Redirect
-            to= '/'
-          />);
+          //authService.setAuthenticated(true);
+          store.dispatch({
+            type: 'Authenticated',
+            payload: { 
+              userId: '1234567'
+            }
+        })
+        console.log(store.getState());
+        history.push("/");
+          // return( <Redirect
+          //   to= '/'
+          // />); 
       }
       else
       {
+        store.dispatch({
+          type: 'notAuthenticated',
+          payload: { 
+            userId: ''
+          }
+        });
           console.log('login failed');
       }
     } catch (e) {
@@ -53,7 +70,7 @@ import {
       className={styles.form}>
         <div controlId="email" bsSize="large">
           <h3>Email</h3>
-          <input type="text"
+          <input
             autoFocus
             type="email"
             value={email}
