@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-//import { useSelector, useDispatch } from 'react-redux';
-//import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import {Redirect} from 'react-router-dom';
 import {
 
   } from './loginSlice';
@@ -32,22 +29,18 @@ import {
       }
     
       let res = await axios.post('http://localhost:3000/api/login', data, {withCredentials: true});
-      console.log(res); 
+      console.log(res.data); 
       if(res.status === 200)
       {
           console.log('login successful');
-          //authService.setAuthenticated(true);
           store.dispatch({
             type: 'Authenticated',
             payload: { 
-              userId: '1234567'
+              userId: res.data.userId
             }
         })
         console.log(store.getState());
         history.push("/");
-          // return( <Redirect
-          //   to= '/'
-          // />); 
       }
       else
       {
