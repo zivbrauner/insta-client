@@ -8,7 +8,7 @@ import {
   import styles from './post.module.css';
   //import axios from 'axios';
 
-  export class  Post extends React.Component(props) {
+  export class  Post extends React.Component {
     constructor(props) {
       super(props);
       this.description = props.description;

@@ -13,12 +13,12 @@ import store from './store';
 // screen if you're not yet authenticated.
 export default function PrivateRoute({ children, ...rest }) {
           console.log('in private route');
-          console.log('privateRoute:' + store.getState().Authenticated);
+          console.log('privateRoute:' + store.getState().UserReducer.Authenticated);
           return (
             <Route
               {...rest}
               render={({ location }) => 
-                store.getState().Authenticated ? (
+                store.getState().UserReducer.Authenticated ? (
                   children 
                 ) : (
                   <Redirect

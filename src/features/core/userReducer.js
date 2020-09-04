@@ -3,7 +3,7 @@ const initialState = {
           userId: ''
         }
 
-export default function reduser(state = initialState, action){
+export default function UserReduser(state = initialState, action){
           switch(action.type){
                     case  "Authenticated":
                               return    Object.assign({}, state, {
