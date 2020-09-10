@@ -21,30 +21,6 @@ const wrap = type => str => `<${type}>${str}</${type}>`;
 const transform = pipe(trim, wrap("div"));
 transform(input);
 
-// async function getPosts(user){
-//           console.log(user);
-//           let res = await axios.get('http://localhost:3000/api/posts/'+ user, {withCredentials: true});
-//           store.dispatch({
-//                     type: 'updatePosts',
-//                     payload: { 
-//                       posts: res.data
-//                     }
-//                 })
-//           console.log(res);
-//           return res;
-// }
-
-
-// export default function Home(props) {
-//           let user = store.getState().UserReducer.userId;
-//           return(
-//                     <div className="Home">Home
-//                               <ul>
-//                                         <li />
-//                               </ul>
-//                     </div>);
-// }
-
 export default class Home extends React.Component {
           state = {
               posts: []
@@ -63,18 +39,47 @@ export default class Home extends React.Component {
                     this.setState({ posts: res.data });
           }
           
-          componentDidMount() {
+          async componentDidMount() {
                     let user = store.getState().UserReducer.userId;
-                    getPosts(user);
+                    console.log('hellow');
+                    let res = await axios.get('http://localhost:3000/api/posts/'+ user, {withCredentials: true});
+                    store.dispatch({
+                              type: 'updatePosts',
+                              payload: { 
+                                posts: res.data
+                              }
+                          })
+                    
+                    let pos = [];
+                    for (var i = 0; i < res.data.length; i++)
+                    {
+                              pos[i]= {
+                                        description: res.data[i].Description,
+                                        image: res.data[i].imageLink,
+                                        id: res.data[i]._id,
+                                        likes: res.data[i].like,
+                                        comments: res.data[i].comments
+                              }
+                    }
+                    console.log(pos);
+
+                    let postim = [];
+                    for (var i = 0; i < pos.length; i++)
+                    {
+                              postim[i] = new Post(pos[i]);
+                    }
+                    console.log(postim);
+                    this.setState({ posts: postim });
           };
+
 
           render() {
               return (
-                  <ul>
+                  <div>Home
                       {this.state.posts.map((post) => (
-                          <li key={post._id}>{post.Description}</li>
+                          <Post key={post.id} description={post.description} image = {post.image} id = {post.id} comments = {post.comments} likes = {post.likes}/>
                       ))}
-                  </ul>
+                  </div>
               )
           }
 

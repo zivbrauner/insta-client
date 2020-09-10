@@ -3,9 +3,13 @@
             padding: 60px 0;
           }
         
-           form {
-            margin: 0 auto;
-            max-width: 320px;
+           .post {
+            margin: 1 auto;
+            border-style: solid;
+            border-width: thin;
+            border-color: black;
+            width: 320px;
+            height: 320px;
           }
 
           h3 {
@@ -17,6 +21,14 @@
           button{
                     color: white;
                     background-color: #0095f6;
-                    width: 175px;
+                    width: 100px;
+          }
+
+          .post > img {
+            width: auto;
+            height : auto;
+            border: 1px solid black;
+            max-height: 80%;
+            max-width: 80%;
           }
         }
